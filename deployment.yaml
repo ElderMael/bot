@@ -1,0 +1,35 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: atomist-bot-service
+spec:
+  selector:
+    app: atomist-bot
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 2866
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atomist-bot
+  labels:
+    app: atomist-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atomist-bot
+  template:
+    metadata:
+      labels:
+        app: atomist-bot
+    spec:
+      containers:
+        - name: atomist-bot
+          image: eldermael/bot:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2866
