@@ -36,3 +36,19 @@ spec:
           envFrom:
             - secretRef:
                 name: sdm-auth
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: atomist-bot
+spec:
+  rules:
+    - host: atomist.eldermael.io
+      http:
+        paths:
+          - backend:
+              serviceName: atomist-bot-service
+              servicePort: 8080
+  tls:
+    - hosts:
+        - atomist.eldermael.io
