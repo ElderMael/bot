@@ -11,4 +11,6 @@ RUN npm install -g @atomist/cli \
     && npm cache clean --force
 
 
+EXPOSE 2866
+
 CMD ["atomist", "start", "--local"]
