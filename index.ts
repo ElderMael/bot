@@ -21,6 +21,8 @@ import {
 } from "@atomist/sdm-core";
 import { machine } from "./lib/machine/machine";
 
+import { config as configDotEnv } from "dotenv";
+
 const machineOptions: ConfigureOptions = {
     /**
      * When your SDM requires configuration that is unique to it,
@@ -30,6 +32,14 @@ const machineOptions: ConfigureOptions = {
     ],
 };
 
+configDotEnv();
+
+const sdmApiUserName = process.env.SDM_API_USERNAME;
+const sdmApiPassword = process.env.SDM_API_PASSWORD;
+
+if (!sdmApiUserName.trim() && !sdmApiPassword.trim()) {
+    throw new Error("SDM username or password not provided");
+}
 /**
  * The starting point for building an SDM is here!
  */
@@ -50,4 +60,21 @@ export const configuration: Configuration = {
          */
         configureSdm(machine, machineOptions),
     ],
+    http: {
+        port: 8080,
+        enabled: true,
+        auth: {
+            basic: {
+                enabled: true,
+                username: sdmApiUserName,
+                password: sdmApiPassword,
+            },
+            bearer: {
+                enabled: false,
+            },
+            token: {
+                enabled: false,
+            },
+        },
+    },
 };

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
+import {NoParameters} from "@atomist/automation-client";
 import {
+    CommandHandlerRegistration,
     SoftwareDeliveryMachine,
     SoftwareDeliveryMachineConfiguration,
 } from "@atomist/sdm";
@@ -36,11 +38,16 @@ export function machine(
         configuration,
     });
 
-    /*
-     * this is a good place to type
-    sdm.
-     * and see what the IDE suggests for after the dot
-     */
+    const Hello: CommandHandlerRegistration<NoParameters> = {
+        name: "Hello",
+        description: "say hello",
+        intent: "hello",
+        listener: async cli => {
+            return cli.addressChannels("Hello, World!");
+        },
+    };
+
+    sdm.addCommand(Hello);
 
     return sdm;
 }

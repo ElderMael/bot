@@ -9,7 +9,7 @@ spec:
   ports:
     - protocol: TCP
       port: 443
-      targetPort: 2866
+      targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,4 +32,4 @@ spec:
           image: eldermael/bot:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 2866
+            - containerPort: 8080
