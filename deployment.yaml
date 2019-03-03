@@ -1,15 +1,3 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: atomist-bot-service
-spec:
-  selector:
-    app: atomist-bot
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 443
-      targetPort: 2866
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -37,6 +25,19 @@ spec:
             - secretRef:
                 name: sdm-auth
 ---
+kind: Service
+apiVersion: v1
+metadata:
+  name: atomist-bot-service
+spec:
+  selector:
+    app: atomist-bot
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 2866
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -56,34 +57,3 @@ spec:
     - hosts:
         - atomist.eldermael.io
       secretName: atomist-eldermael-io-crt
----
-apiVersion: certmanager.k8s.io/v1alpha1
-kind: Issuer
-metadata:
-  name: letsencrypt-issuer
-spec:
-  acme:
-    server: https://acme-v01.api.letsencrypt.org/directory
-    email: sftwr.mael@gmail.com
-    privateKeySecretRef:
-      name: letsencrypt-prod
-    http01: {}
----
-apiVersion: certmanager.k8s.io/v1alpha1
-kind: Certificate
-metadata:
-  name: atomist-eldermael-io
-spec:
-  secretName: eldermael-io-crt
-  issuerRef:
-    name: letsencrypt-issuer
-    kind: Issuer
-  commonName: atomist.eldermael.io
-  dnsNames:
-    - atomist.eldermael.io
-  acme:
-    config:
-      - http01:
-          ingressClass: nginx
-        domains:
-          - atomist.eldermael.io
