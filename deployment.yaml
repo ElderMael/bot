@@ -35,7 +35,7 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 443
+      port: 2866
       targetPort: 2866
 ---
 apiVersion: extensions/v1beta1
@@ -52,7 +52,7 @@ spec:
         paths:
           - backend:
               serviceName: atomist-bot-service
-              servicePort: 443
+              servicePort: 2866
   tls:
     - hosts:
         - atomist.eldermael.io
