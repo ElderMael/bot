@@ -41,6 +41,9 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: atomist-bot
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/cluster-issuer: letsencrypt
 spec:
   rules:
     - host: atomist.eldermael.io
@@ -52,3 +55,35 @@ spec:
   tls:
     - hosts:
         - atomist.eldermael.io
+      secretName: atomist-eldermael-io-crt
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt-issuer
+spec:
+  acme:
+    server: https://acme-v01.api.letsencrypt.org/directory
+    email: sftwr.mael@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    http01: {}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: atomist-eldermael-io
+spec:
+  secretName: eldermael-io-crt
+  issuerRef:
+    name: letsencrypt-issuer
+    kind: Issuer
+  commonName: atomist.eldermael.io
+  dnsNames:
+    - atomist.eldermael.io
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - atomist.eldermael.io
