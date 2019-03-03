@@ -52,7 +52,7 @@ spec:
         paths:
           - backend:
               serviceName: atomist-bot-service
-              servicePort: 2866
+              servicePort: 443
   tls:
     - hosts:
         - atomist.eldermael.io
