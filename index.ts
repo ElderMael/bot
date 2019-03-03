@@ -61,7 +61,6 @@ export const configuration: Configuration = {
         configureSdm(machine, machineOptions),
     ],
     http: {
-        port: 8080,
         enabled: true,
         auth: {
             basic: {

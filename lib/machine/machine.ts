@@ -42,8 +42,8 @@ export function machine(
         name: "Hello",
         description: "say hello",
         intent: "hello",
-        listener: async cli => {
-            return cli.addressChannels("Hello, World!");
+        listener: async () => {
+            console.log("Saying hello");
         },
     };
 

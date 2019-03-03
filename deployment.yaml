@@ -9,7 +9,7 @@ spec:
   ports:
     - protocol: TCP
       port: 443
-      targetPort: 8080
+      targetPort: 2866
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,7 +32,7 @@ spec:
           image: eldermael/bot:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 2866
           envFrom:
             - secretRef:
                 name: sdm-auth
@@ -48,7 +48,7 @@ spec:
         paths:
           - backend:
               serviceName: atomist-bot-service
-              servicePort: 8080
+              servicePort: 2866
   tls:
     - hosts:
         - atomist.eldermael.io
