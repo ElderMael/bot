@@ -44,8 +44,7 @@ kind: Ingress
 metadata:
   name: atomist-bot
   annotations:
-    kubernetes.io/tls-acme: "true"
-    certmanager.k8s.io/cluster-issuer: letsencrypt
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
 spec:
   backend:
     serviceName: atomist-bot-service
