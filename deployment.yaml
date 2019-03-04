@@ -34,7 +34,8 @@ spec:
     app: atomist-bot
   type: NodePort
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 2866
       targetPort: 2866
 ---
@@ -47,7 +48,7 @@ metadata:
     certmanager.k8s.io/cluster-issuer: letsencrypt
 spec:
   backend:
-    serviceName: atomist.eldermael.io
+    serviceName: atomist-bot-service
     servicePort: 2866
   tls:
     - hosts:
