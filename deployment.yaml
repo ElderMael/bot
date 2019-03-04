@@ -35,7 +35,7 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 443
+      port: 2866
       targetPort: 2866
 ---
 apiVersion: extensions/v1beta1
