@@ -46,13 +46,9 @@ metadata:
     kubernetes.io/tls-acme: "true"
     certmanager.k8s.io/cluster-issuer: letsencrypt
 spec:
-  rules:
-    - host: atomist.eldermael.io
-      http:
-        paths:
-          - backend:
-              serviceName: atomist-bot-service
-              servicePort: 2866
+  backend:
+    serviceName: atomist.eldermael.io
+    servicePort: 2866
   tls:
     - hosts:
         - atomist.eldermael.io
