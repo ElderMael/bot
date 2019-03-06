@@ -8,7 +8,7 @@ COPY . .
 
 RUN npm install -g @atomist/cli \
     && npm install \
-    && npm cache clean --force
+    && npm cache clean --force \
     && atomist config --api-key "${ATOMIST_API_KEY}" --workspace-id "${ATOMIST_WORKSPACE_ID}"
 
 
