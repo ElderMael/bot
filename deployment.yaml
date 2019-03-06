@@ -20,8 +20,9 @@ spec:
           image: eldermael/bot:latest
           imagePullPolicy: Always
           volumeMounts:
-            - mountPath: /root/.atomist/client.config.json
-              name: atomist-config
+            - name: atomist-config
+              mountPath: /root/.atomist
+              readOnly: true
           ports:
             - containerPort: 2866
           envFrom:
@@ -31,6 +32,9 @@ spec:
         - name: atomist-config
           secret:
             secretName: atomist-config
+            items:
+              - key: client.config.json
+                path: ./client.config.json
 ---
 kind: Service
 apiVersion: v1
