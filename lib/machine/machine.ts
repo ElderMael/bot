@@ -42,11 +42,7 @@ export function machine(
         name: "Hello",
         description: "say hello",
         intent: "hello",
-        listener: async cli => {
-            cli.addressChannels({
-                text: "Hello!" ,
-            });
-        },
+        listener: async cli => cli.addressChannels({ text: "Hello!" }),
     };
 
     sdm.addCommand(Hello);
