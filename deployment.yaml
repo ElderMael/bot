@@ -44,6 +44,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  name: atomist-ingress
   annotations:
     certmanager.k8s.io/cluster-issuer: letsencrypt-prod
 spec:
