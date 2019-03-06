@@ -42,8 +42,10 @@ export function machine(
         name: "Hello",
         description: "say hello",
         intent: "hello",
-        listener: async () => {
-            console.log("Saying hello");
+        listener: async cli => {
+            cli.addressChannels({
+                text: "Hello!" ,
+            });
         },
     };
 
