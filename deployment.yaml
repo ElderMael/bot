@@ -24,6 +24,8 @@ spec:
           envFrom:
             - secretRef:
                 name: sdm-auth
+            - secretRef:
+                name: atomist
 ---
 kind: Service
 apiVersion: v1
@@ -42,7 +44,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: atomist-bot
   annotations:
     certmanager.k8s.io/cluster-issuer: letsencrypt-prod
 spec:
