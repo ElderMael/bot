@@ -19,13 +19,18 @@ spec:
         - name: atomist-bot
           image: eldermael/bot:latest
           imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /root/.atomist/client.config.json
+              name: atomist-config
           ports:
             - containerPort: 2866
           envFrom:
             - secretRef:
                 name: sdm-auth
-            - secretRef:
-                name: atomist
+      volumes:
+        - name: atomist-config
+          secret:
+            secretName: atomist-config
 ---
 kind: Service
 apiVersion: v1
